@@ -1,9 +1,16 @@
-# Attention
+# ZSH
 
-c'est un exemple avec des alias  dans le cas où les applis ont été préalablement installées.
+**Attention** d'avoir oh-my-zsh d'installer. Les fichiers sont à placer dans le dossier
 
-1. oh-my-zsh
-2. zhh_theme = "power level 10k"
-3. plugins=(git zsh-autosuggestions zsh-syntax-highlighting) 
-4. lazydocker
+```shell
+~/.oh-my-zsh/custom
+```
 
+alias.zsh ne nécessite aucune installation au préalable. Par contre tous les autres sont à installer (de préférence avec
+brew).
+
+Au niveau de .zshrc:
+
+```shell
+source .zshrc
+```
