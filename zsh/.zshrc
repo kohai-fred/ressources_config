@@ -1,6 +1,3 @@
-# Change the title
-echo -n -e "\033]0;iTerm2\007"
-
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
 # confirmations, etc.) must go above this block; everything else may go below.
@@ -11,13 +8,17 @@ fi
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
-
+# Path to your oh-my-zsh installation.
+export ZSH="$HOME/.oh-my-zsh"
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
+
 # ZSH_THEME="robbyrussell"
+# POWERLEVEL10K_LEFT_PROMPT_ELEMENTS=(dir vcs)
+# POWERLEVEL10K_RIGHT_PROMPT_ELEMENTS=(status root_indicator background_jobs history time)
 ZSH_THEME="powerlevel10k/powerlevel10k"
 
 # Set list of themes to pick from when loading at random
@@ -80,7 +81,7 @@ ENABLE_CORRECTION="true"
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git zsh-autosuggestions zsh-syntax-highlighting)
+plugins=(git  zsh-autosuggestions zsh-syntax-highlighting gcloud)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -109,25 +110,51 @@ source $ZSH/oh-my-zsh.sh
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
-source /Users/fred/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+
+# To customize prompt, run `p10k configure` or edit /var/folders/v9/nx3bgb951r586w9dn8b_flg40000gp/T/vscode-zsh/.p10k.zsh.
+[[ ! -f /var/folders/v9/nx3bgb951r586w9dn8b_flg40000gp/T/vscode-zsh/.p10k.zsh ]] || source /var/folders/v9/nx3bgb951r586w9dn8b_flg40000gp/T/vscode-zsh/.p10k.zsh
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+source /Users/frederickvu/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
-POWERLEVEL9K_INSTANT_PROMPT=quiet
-POWERLEVEL9K_INSTANT_PROMPT=off
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f '/Users/frederickvu/Downloads/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/frederickvu/Downloads/google-cloud-sdk/path.zsh.inc'; fi
 
-# Create .hushlogin file at same level .zshrc to remove the first info line
+# The next line enables shell command completion for gcloud.
+if [ -f '/Users/frederickvu/Downloads/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/frederickvu/Downloads/google-cloud-sdk/completion.zsh.inc'; fi
+
+export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
+
+PATH=~/.console-ninja/.bin:$PATH
 
 
-# COM_COLOR="\033[0;34m"
-# OBJ_COLOR   = \033[0;36m
-# OK_COLOR    = \033[0;32m
-# ERROR_COLOR = \033[0;31m
-# WARN_COLOR  = \033[0;33m
-# NO_COLOR    = \033[m
+export JAVA_HOME=$(/usr/libexec/java_home -v17)
 
-alias py="python3"
+# NVM:
+export NVM_DIR=~/.nvm
+source $(brew --prefix nvm)/nvm.sh
+
+autoload -U add-zsh-hook
+load-nvmrc() {
+  local node_version="$(nvm version)"
+  local nvmrc_path="$(nvm_find_nvmrc)"
+
+  if [ -n "$nvmrc_path" ]; then
+    local nvmrc_node_version=$(nvm version "$(cat "${nvmrc_path}")")
+
+    if [ "$nvmrc_node_version" = "N/A" ]; then
+      nvm install
+    elif [ "$nvmrc_node_version" != "$node_version" ]; then
+      nvm use
+    fi
+  elif [ "$node_version" != "$(nvm version default)" ]; then
+    echo "Reverting to nvm default version"
+    nvm use default
+  fi
+}
+add-zsh-hook chpwd load-nvmrc
+load-nvmrc
 
 gomkdir(){ ## Créer un dossier et se déplacer dedans
     mkdir $1 && cd $_
@@ -150,3 +177,23 @@ alias path='echo; tr ":" "\n" <<< "$PATH"; echo;'
 
 # Launch lazydocker
 alias lzd='lazydocker'
+
+# Start the fuck (terminal auto correction)
+eval $(thefuck --alias)
+
+# FZF
+## Key bindings
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+## preview
+_fzf_comprun() {
+  local command=$1
+  shift
+
+  case "$command" in
+    cd)           fzf --preview 'tree -C {} | head -200'   "$@" ;;
+    export|unset) fzf --preview "eval 'echo \$'{}"         "$@" ;;
+    ssh)          fzf --preview 'dig {}'                   "$@" ;;
+    *)            fzf --preview 'bat -n --color=always {}' "$@" ;;
+  esac
+}
