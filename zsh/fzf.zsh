@@ -1,4 +1,7 @@
 ## Preview
+
+alias fzf='fzf --preview="bat --color=always {}"'
+
 _fzf_comprun() {
   local command=$1
   shift
