@@ -8,6 +8,7 @@
 4. thefuck (retape la bonne commande en cas d'erreur)
 5. tree (affichage de l'arborescence des dossiers)
 6. oh-my-zsh (customisation et alias)
+7. lsd (ls en mieux)
 
 ### Pour le Mac:
 
