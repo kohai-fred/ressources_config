@@ -7,7 +7,7 @@
 - fzf (systeme de recherche approfondi)
 - thefuck (retape la bonne commande en cas d'erreur)
 - tree (affichage de l'arborescence des dossiers)
-- oh-my-zsh (customisation et alias)
+- oh-my-zsh (customisation et alias) <span style="color: #00ffff">\*</span>
 - lsd (ls en mieux)
 - bat (cat avec coloration syntaxique)
 
@@ -29,4 +29,5 @@
 
 
 ### Asterix:
-<span style="color: #ff00ff">\*</span> Voir le readme dans le dossier de yabai.
+<span style="color: #00ffff">\*</span> Voir le readme dans le dossier *zsh*
+<span style="color: #ff00ff">\*</span> Voir le readme dans le dossier de *yabai*
