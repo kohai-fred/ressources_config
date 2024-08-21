@@ -40,7 +40,7 @@ ctrl + alt + cmd - right : yabai -m window --display east; yabai -m display --fo
 #change focus between external displays (left and right)
 # ctrl + alt + cmd - a : yabai -m display --focus west
 # ctrl + alt + cmd - p : yabai -m display --focus east
-ctrl + alt + cmd - a : yabai -m display --focus west || yabai -m display --focus east
+ctrl + alt + cmd - a : yabai -m display --focus next || yabai -m display --focus prev
 
 # move window to space #
 ctrl + alt + cmd - tab : yabai -m window --space next;

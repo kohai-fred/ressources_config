@@ -2,16 +2,31 @@
 
 ### Terminal:
 
-1. lazydocker (pseudo interface docker)
-2. Iterm2 (terminal alternatif)
-3. fzf (systeme de recherche approfondi)
-4. thefuck (retape la bonne commande en cas d'erreur)
-5. tree (affichage de l'arborescence des dossiers)
-6. oh-my-zsh (customisation et alias)
-7. lsd (ls en mieux)
+- lazydocker (pseudo interface docker)
+- Iterm2 (terminal alternatif)
+- fzf (systeme de recherche approfondi)
+- thefuck (retape la bonne commande en cas d'erreur)
+- tree (affichage de l'arborescence des dossiers)
+- oh-my-zsh (customisation et alias)
+- lsd (ls en mieux)
+- bat (cat avec coloration syntaxique)
 
 ### Pour le Mac:
 
-1. rectangle (organistaion des fenêtres au clavier)
-2. raycast (super spotlight)
-3. arc (navigateur)
+- ~~rectangle (organistaion des fenêtres au clavier)~~
+- karabiner (mapping touch) + yabai (window manager) + skhd (raccourci pour yabai) *pour remplacer rectangle* <span style="color: #ff00ff">\*</span>
+- raycast (super spotlight)
+- arc (navigateur)
+
+
+### Utils:
+
+##### Brew:
+- *Copier la liste des programmes installé avec brew:*
+```brew list > brew_programs_list.txt```
+- *Installer la liste des programmes de brew:*
+```xargs brew install < brew_programs_list.txt```
+
+
+### Asterix:
+<span style="color: #ff00ff">\*</span> Voir le readme dans le dossier de yabai.
