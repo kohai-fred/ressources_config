@@ -3,11 +3,14 @@
 # https://github.com/koekeishiya/yabai
 
 ## SDKH:
-# https://github.com/koekeishiya/skhd
-# https://github.com/koekeishiya/skhd/issues/1
+# https://github.com/koekeishiya/skhd -> repo
+# https://github.com/koekeishiya/skhd/issues/1 -> Keycode
 # hyper = cmd + shift + alt + ctrl
 # meh = shift + alt + ctrl
-
+# 0x24 = enter
+# 0x12 = 1
+# 0x13 = 2
+# 0x14 = 3
 
 # Arrow Keys
 fn - h : skhd -k "left"
@@ -15,17 +18,26 @@ fn - j : skhd -k "down"
 fn - k : skhd -k "up"
 fn - l : skhd -k "right"
 
+# start/restart
+hyper - escape : yabai --start-service
+ctrl + alt + cmd - escape : yabai --restart-service
+meh - escape : yabai --stop-service
+
 # change window focus within space
 ctrl + alt + cmd - s : yabai -m window --focus south
 ctrl + alt + cmd - z : yabai -m window --focus north
 ctrl + alt + cmd - q : yabai -m window --focus west
 ctrl + alt + cmd - d : yabai -m window --focus east
+#ctrl + alt + cmd - space : yabai -m window --focus next || yabai -m window --focus prev;
+ctrl + alt + cmd - space : yabai -m window --focus $(yabai -m query --windows --space | jq 'sort_by(.id) | .[(to_entries | .[] | select(.value."has-focus") | .key + 1) % length] | .id')
+#cmd - k : yabai -m window --focus $(yabai -m query --windows --space | jq 'sort_by(.id) | .[(to_entries | .[] | select(.value."has-focus") | .key - 1) % length] | .id')
 
 # swap windows
 hyper - s : yabai -m window --swap south
 hyper - z : yabai -m window --swap north
 hyper - q : yabai -m window --swap west
 hyper - d : yabai -m window --swap east
+hyper - space : yabai -m window --swap next || yabai -m window --swap prev;
 
 # move window and split
 hyper - l : yabai -m window --warp south
@@ -34,8 +46,8 @@ hyper - k : yabai -m window --warp west
 hyper - m : yabai -m window --warp east
 
 # move window to display left and right
-ctrl + alt + cmd - left : yabai -m window --display west; yabai -m display --focus west;
-ctrl + alt + cmd - right : yabai -m window --display east; yabai -m display --focus east;
+ctrl + alt + cmd - left : yabai -m window --display prev; yabai -m display --focus prev;
+ctrl + alt + cmd - right : yabai -m window --display next; yabai -m display --focus next;
 
 #change focus between external displays (left and right)
 # ctrl + alt + cmd - a : yabai -m display --focus west
@@ -71,29 +83,36 @@ ctrl + alt + cmd - f : yabai -m window --toggle float; yabai -m window --grid 4:
 # Works fine with only 2 apps on screen
 ctrl + alt + cmd - r : "/Users/frederickvu/.config/yabai/toggle_ratio.sh"
 
-
 # increase window size
-hyper - up : yabai -m window --resize left:-250:0
-# ctrl + alt + cmd - l : yabai -m window --resize bottom:0:20
-# ctrl + alt + cmd - o : yabai -m window --resize top:0:-20
-ctrl + alt + cmd - up : yabai -m window --resize right:250:0;
+# On peut determiner la en ajoutant un espace et la taille comme ceci:
+# "/Users/<whoami>/.config/yabai/resize_up.sh" 50
+# par default la taille est de 250
+ctrl + alt + cmd - up : "/Users/frederickvu/.config/yabai/resize_up.sh"
 
 # decrease window size
-hyper - down : yabai -m window --resize left:250:0
-# hyper - s : yabai -m window --resize bottom:0:-20
-# hyper - w : yabai -m window --resize top:0:20
-ctrl + alt + cmd - down : yabai -m window --resize right:-250:0;
+ctrl + alt + cmd - down : "/Users/frederickvu/.config/yabai/resize_down.sh"
+
+# rotate
+hyper - r : yabai -m space --rotate 90;
 
 #$ SPACES:
 # Need to disabled protection for all command for space working
 # !https://github.com/koekeishiya/yabai/wiki/Disabling-System-Integrity-Protection
 
 # Change space:
-# ctrl + alt + cmd - 0x12 : yabai -m space --focus 1 # 0x12 = 1
-# ctrl + alt + cmd  - 0x13 : yabai -m space --focus 2 # 0x13 = 2
-# ctrl + alt + cmd - 0x14 : yabai -m space --focus 3 # 0x14 = 3
+# ctrl + alt + cmd - 0x12 : yabai -m space --focus 1
+# ctrl + alt + cmd  - 0x13 : yabai -m space --focus 2
+# ctrl + alt + cmd - 0x14 : yabai -m space --focus 3
 
 # Create:
 # ctrl + alt + cmd - n : yabai -m space --create
 
 # cmd - esc : yabai -m window --close
+#:: default : yabai -m config active_window_border_color 0xE032CD32
+
+#resize < hyper - b ; default
+#default < hyper -b ; resize
+
+#resize < left : yabai -m window --resize left:-50:0; \ yabai -m window --resize right:-50:0
+#resize < right : yabai -m window --resize left:50:0; \ yabai -m window --resize right:50:0
+#:: resize @ : yabai -m config active_window_border_color 0xFFFF00FF
