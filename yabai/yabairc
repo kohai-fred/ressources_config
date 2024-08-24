@@ -38,6 +38,7 @@ yabai -m rule --add app="^Karabiner-Elements$" manage=off
 yabai -m rule --add app="^Karabiner-EventViewer$" manage=off
 yabai -m rule --add app="^Finder$" manage=off
 yabai -m rule --add app="^Moniteur d'activité$" manage=off
+yabai -m rule --add app="^Moniteur d'activité$" pid=33309 manage=off
 yabai -m rule --add app="^iTerm2$" id=1243 manage=off # iTerm2 hotkey
 # yabai -m rule --add app="^Logi Options+$" id=34467 manage=off
 yabai -m rule --add app="^Logi Options$" manage=off # ne fonctionne pas !!!
