@@ -8,6 +8,7 @@
 # hyper = cmd + shift + alt + ctrl
 # meh = shift + alt + ctrl
 # 0x24 = enter
+# 0x33 = backspace
 # 0x12 = 1
 # 0x13 = 2
 # 0x14 = 3
@@ -18,101 +19,64 @@ fn - j : skhd -k "down"
 fn - k : skhd -k "up"
 fn - l : skhd -k "right"
 
-# start/restart
+#? ===== YABAI: =====
+# Start
 hyper - escape : yabai --start-service
+# Restart
 ctrl + alt + cmd - escape : yabai --restart-service
+# Stop
 meh - escape : yabai --stop-service
 
-# change window focus within space
-ctrl + alt + cmd - s : yabai -m window --focus south
-ctrl + alt + cmd - z : yabai -m window --focus north
-ctrl + alt + cmd - q : yabai -m window --focus west
-ctrl + alt + cmd - d : yabai -m window --focus east
-#ctrl + alt + cmd - space : yabai -m window --focus next || yabai -m window --focus prev;
-ctrl + alt + cmd - space : yabai -m window --focus $(yabai -m query --windows --space | jq 'sort_by(.id) | .[(to_entries | .[] | select(.value."has-focus") | .key + 1) % length] | .id')
-#cmd - k : yabai -m window --focus $(yabai -m query --windows --space | jq 'sort_by(.id) | .[(to_entries | .[] | select(.value."has-focus") | .key - 1) % length] | .id')
+#? ===== WINDOW FOCUS: =====
+# Toggle window focus within space
+ctrl + alt + cmd - right : yabai -m window --focus next || yabai -m window --focus prev
+ctrl + alt + cmd - left : yabai -m window --focus prev || yabai -m window --focus next
+# If you want rotate focus between all (floating) windows within space
+# ctrl + alt + cmd - space : yabai -m window --focus $(yabai -m query --windows --space | jq 'sort_by(.id) | .[(to_entries | .[] | select(.value."has-focus") | .key + 1) % length] | .id')
 
-# swap windows
-hyper - s : yabai -m window --swap south
-hyper - z : yabai -m window --swap north
-hyper - q : yabai -m window --swap west
-hyper - d : yabai -m window --swap east
-hyper - space : yabai -m window --swap next || yabai -m window --swap prev;
+# Toggle swap window focus within space
+hyper - right : yabai -m window --swap next || yabai -m window --swap prev;
+hyper - left : yabai -m window --swap prev || yabai -m window --swap next
 
-# move window and split
-hyper - l : yabai -m window --warp south
-hyper - o : yabai -m window --warp north
-hyper - k : yabai -m window --warp west
-hyper - m : yabai -m window --warp east
+#? ===== SCREEN: =====
+# Toggle screen focus/switch app
+ctrl + alt + cmd - space : yabai -m display --focus next || yabai -m display --focus prev
+hyper - space : yabai -m window --display next|| yabai -m window --display prev ; yabai -m display --focus next || yabai -m display --focus prev;
 
-# move window to display left and right
-ctrl + alt + cmd - left : yabai -m window --display prev; yabai -m display --focus prev;
-ctrl + alt + cmd - right : yabai -m window --display next; yabai -m display --focus next;
-
-#change focus between external displays (left and right)
-# ctrl + alt + cmd - a : yabai -m display --focus west
-# ctrl + alt + cmd - p : yabai -m display --focus east
-ctrl + alt + cmd - a : yabai -m display --focus next || yabai -m display --focus prev
-
-# move window to space #
-ctrl + alt + cmd - tab : yabai -m window --space next;
-hyper - tab : yabai -m window --space prev;
-# Cant follow focus, need permission, show Spaces below
-# hyper - 0x12 : yabai -m window --space 1;yabai -m space --focus 1
-hyper - 0x12 : yabai -m window --space 1;
-hyper - 0x13 : yabai -m window --space 2;
-hyper - 0x14 : yabai -m window --space 3;
-hyper - 0x15 : yabai -m window --space 4;
-hyper - 0x16 : yabai -m window --space 5;
-hyper - 0x17 : yabai -m window --space 6;
-hyper - 0x18 : yabai -m window --space 7;
-hyper - 0x19 : yabai -m window --space 8;
-
-# maximize a window
-ctrl + alt + cmd - m : yabai -m window --toggle zoom-fullscreen;
-
-# balance out tree of windows (resize to occupy same area)
-ctrl + alt + cmd - e : yabai -m space --balance;
-
-# toggle floating
-# window in/out yabai flux
-ctrl + alt + cmd - f : yabai -m window --toggle float; yabai -m window --grid 4:4:1:1:2:2;
-
-# $ SIZING:
+#? ===== WINDOW SIZING: =====
 # Toggle ratio
 # Works fine with only 2 apps on screen
-ctrl + alt + cmd - r : "/Users/frederickvu/.config/yabai/toggle_ratio.sh"
+ctrl + alt + cmd - 0x24 : sh -c "~/.config/skhd/toggle_ratio.sh"
 
-# increase window size
+# Reset ratio
+# hyper - left : yabai -m space --balance
+
+# Toggle maximize (0x24 = enter)
+hyper - 0x24 : yabai -m window --toggle zoom-fullscreen
+
+# By step
 # On peut determiner la en ajoutant un espace et la taille comme ceci:
-# "/Users/<whoami>/.config/yabai/resize_up.sh" 50
+# "~/.config/yabai/resize_up.sh" 50
 # par default la taille est de 250
-ctrl + alt + cmd - up : "/Users/frederickvu/.config/yabai/resize_up.sh"
+# increase window size
+ctrl + alt + cmd - up : sh -c "~/.config/skhd/resize_up.sh"
+# # decrease window size
+ctrl + alt + cmd - down : sh -c "~/.config/skhd/resize_down.sh"
 
-# decrease window size
-ctrl + alt + cmd - down : "/Users/frederickvu/.config/yabai/resize_down.sh"
+#? ===== MOVE WINDOW TO SPACE AND FOLLOW FOCUS: =====
+ctrl + alt + cmd - tab : sh -c "~/.config/skhd/moveWindowRightAndFollowFocus.sh"
+hyper - tab : sh -c "~/.config/skhd/moveWindowLeftAndFollowFocus.sh"
 
-# rotate
-hyper - r : yabai -m space --rotate 90;
 
-#$ SPACES:
-# Need to disabled protection for all command for space working
-# !https://github.com/koekeishiya/yabai/wiki/Disabling-System-Integrity-Protection
+#? ===== APPLICATIONS: =====
+# open apps or switch focus
+ctrl + alt + cmd  - s : open /Applications/Spotify.app || open -a "Spotify"
+hyper  - s : open /Applications/Slack.app || open -a "Slack"
+ctrl + alt + cmd  - d : open /Applications/Discord.app || open -a "Discord"
+ctrl + alt + cmd  - w : open /Applications/Arc.app || open -a "Arc"
+ctrl + alt + cmd  - f :  open /Applications/Finder.app || open -a "Finder"
+ctrl + alt + cmd  - n :  open /Applications/Notes.app || open -a "Notes"
 
-# Change space:
-# ctrl + alt + cmd - 0x12 : yabai -m space --focus 1
-# ctrl + alt + cmd  - 0x13 : yabai -m space --focus 2
-# ctrl + alt + cmd - 0x14 : yabai -m space --focus 3
-
-# Create:
-# ctrl + alt + cmd - n : yabai -m space --create
-
-# cmd - esc : yabai -m window --close
-#:: default : yabai -m config active_window_border_color 0xE032CD32
-
-#resize < hyper - b ; default
-#default < hyper -b ; resize
-
-#resize < left : yabai -m window --resize left:-50:0; \ yabai -m window --resize right:-50:0
-#resize < right : yabai -m window --resize left:50:0; \ yabai -m window --resize right:50:0
-#:: resize @ : yabai -m config active_window_border_color 0xFFFF00FF
+# VS CODE ne fonctionne pas comme les autres. Open pas de problème mais pas le focus et dans Raycast c'est pareil.
+# Obligé d'utiliser cette commande.
+ctrl + alt + cmd  - x : open -a "Visual Studio Code" && yabai -m window --focus "$(yabai -m query --windows | jq 'map(select(.app == "Code")) | .[0].id')"

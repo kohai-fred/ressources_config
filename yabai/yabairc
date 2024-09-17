@@ -9,7 +9,7 @@ yabai -m config top_padding 8
 yabai -m config bottom_padding 8
 yabai -m config left_padding 8
 yabai -m config right_padding 8
-yabai -m config window_gap 8
+yabai -m config window_gap 16
 
 # center mouse on window with focus
 yabai -m config mouse_follows_focus on
@@ -42,6 +42,7 @@ yabai -m rule --add app="^Moniteur d'activité$" pid=33309 manage=off
 yabai -m rule --add app="^iTerm2$" id=1243 manage=off # iTerm2 hotkey
 # yabai -m rule --add app="^Logi Options+$" id=34467 manage=off
 yabai -m rule --add app="^Logi Options$" manage=off # ne fonctionne pas !!!
+yabai -m rule --add app="^Raycast$" manage=off
 
 
 # yabai -m signal --add event=space_changed action="nohup open -g raycast://extensions/krzysztoff1/yabai/screens-menu-bar?launchType=background > /dev/null 2>&1 &"
@@ -72,3 +73,23 @@ yabai -m rule --add app="^Logi Options$" manage=off # ne fonctionne pas !!!
 # yabai -m config active_window_opacity 1.0
 # yabai -m config normal_window_opacity 0.9
 # yabai -m config window_animation_duration 0.35
+
+# # !TEST
+# yabai -m signal --add event=window_destroyed \
+#   action="${functions[focus_under_cursor]}"
+# yabai -m signal --add event=window_minimized \
+#   action="${functions[focus_under_cursor]}"
+# yabai -m signal --add event=application_hidden \
+#   action="${functions[focus_under_cursor]}"
+
+# function focus_under_cursor {
+#   if yabai -m query --windows --space |
+#       jq -er 'map(select(.focused == 1)) | length == 0' >/dev/null; then
+#     yabai -m window --focus mouse 2>/dev/null || true
+#   fi
+# }
+
+# brew tap FelixKratz/formulae
+# brew install borders
+# Higher to sonoma apple version!
+borders active_color=0xff80ed99 inactive_color=0xff494d64 width=8.0
