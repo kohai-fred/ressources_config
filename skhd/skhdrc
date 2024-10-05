@@ -70,8 +70,8 @@ hyper - tab : sh -c "~/.config/skhd/moveWindowLeftAndFollowFocus.sh"
 
 #? ===== APPLICATIONS: =====
 # open apps or switch focus
-ctrl + alt + cmd  - s : open /Applications/Spotify.app || open -a "Spotify"
-hyper  - s : open /Applications/Slack.app || open -a "Slack"
+ctrl + alt + cmd  - m : open /Applications/Spotify.app || open -a "Spotify"
+ctrl + alt + cmd  - s : open /Applications/Slack.app || open -a "Slack"
 ctrl + alt + cmd  - d : open /Applications/Discord.app || open -a "Discord"
 ctrl + alt + cmd  - w : open /Applications/Arc.app || open -a "Arc"
 ctrl + alt + cmd  - f :  open /Applications/Finder.app || open -a "Finder"
