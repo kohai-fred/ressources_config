@@ -5,10 +5,10 @@ yabai -m config layout bsp
 yabai -m config window_placement second_child
 
 # padding set to 8px
-yabai -m config top_padding 8
-yabai -m config bottom_padding 8
-yabai -m config left_padding 8
-yabai -m config right_padding 8
+yabai -m config top_padding 10
+yabai -m config bottom_padding 10
+yabai -m config left_padding 10
+yabai -m config right_padding 10
 yabai -m config window_gap 16
 
 # center mouse on window with focus
@@ -37,8 +37,8 @@ yabai -m rule --add app="^Calculette$" manage=off
 yabai -m rule --add app="^Karabiner-Elements$" manage=off
 yabai -m rule --add app="^Karabiner-EventViewer$" manage=off
 yabai -m rule --add app="^Finder$" manage=off
-yabai -m rule --add app="^Moniteur d'activité$" manage=off
-yabai -m rule --add app="^Moniteur d'activité$" pid=33309 manage=off
+yabai -m rule --add app="^Moniteur d’activité$" manage=off
+yabai -m rule --add app="^Moniteur d’activité$" pid=33309 manage=off
 yabai -m rule --add app="^iTerm2$" id=1243 manage=off # iTerm2 hotkey
 # yabai -m rule --add app="^Logi Options+$" id=34467 manage=off
 yabai -m rule --add app="^Logi Options$" manage=off # ne fonctionne pas !!!
@@ -92,4 +92,9 @@ yabai -m rule --add app="^Raycast$" manage=off
 # brew tap FelixKratz/formulae
 # brew install borders
 # Higher to sonoma apple version!
-borders active_color=0xff80ed99 inactive_color=0xff494d64 width=8.0
+# borders active_color=0xff80ed99 inactive_color=0xff494d64 width=8.0
+# borders active_color=0xff06d6a0 inactive_color=0xff494d64 width=8.0 # GREEN
+# borders active_color=0xffe5383b inactive_color=0xff494d64 width=8.0 # RED
+# borders active_color=0xffffb627 inactive_color=0xff494d64 width=8.0 # YELLOW
+# borders active_color=0xff5c0099 inactive_color=0xff494d64 width=8.0 # DARK PURPLE
+# borders active_color=0xfff72585 inactive_color=0xff494d64 width=10.0 # PINK
