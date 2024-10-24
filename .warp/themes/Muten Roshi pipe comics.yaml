@@ -1,0 +1,29 @@
+---
+background: "#050305"
+accent: "#ffcc00"
+cursor: "#ffcc00"
+foreground: "#ffffff"
+background_image:
+  path: /Users/frederickvu/.warp/themes/Muten_pipe_comics.png
+  opacity: 20
+details: darker
+terminal_colors:
+  normal:
+    black: "#0b3b61"
+    red: "#ff3a3a"
+    green: "#52ffd0"
+    yellow: "#fff383"
+    blue: "#1376f9"
+    magenta: "#c792ea"
+    cyan: "#ff5ed4"
+    white: "#16fda2"
+  bright:
+    black: "#63686d"
+    red: "#ff54b0"
+    green: "#74ffd8"
+    yellow: "#fcf5ae"
+    blue: "#388eff"
+    magenta: "#ae81ff"
+    cyan: "#ff6ad7"
+    white: "#60fbbf"
+name: Muten Roshi pipe comics

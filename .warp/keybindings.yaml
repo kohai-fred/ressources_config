@@ -1,0 +1,8 @@
+---
+"input:toggle_workflows": alt-w
+"ai_assistant_panel:reset_context": none
+"terminal:copy_commands": cmd-c
+"workspace:search_drive": cmd-k
+"workspace:toggle_warp_drive": alt-p
+"terminal:copy_outputs": shift-cmd-C
+"terminal:copy": none
